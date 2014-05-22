@@ -2,13 +2,12 @@
   "name": "agent-node",
   "version": "0.0.1",
   "dependencies": {
-    "cheerio": "~0.12",
-    "express": "^3.6.0",
-    "logfmt": "^1.1.2",
+    "url": "~0.12",
+    "elementtree": "^0.1.6",
     "request": "~2"
   },
   "scripts": {
-    "start": "node server.js"
+    "start": "node index.js"
   },
   "description": "Node.js application for Job Agent",
   "main": "index.js",
