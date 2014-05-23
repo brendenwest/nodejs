@@ -102,8 +102,8 @@ function parseXml(xmlStr) {
 
   
 
-  for (i=0; i<2; i++) { // for each job. limit for testing
-//  for (i=0;i<jobsXml.length;i++) { // for each job
+//  for (i=0; i<2; i++) { // for each job. limit for testing
+  for (i=0;i<jobsXml.length;i++) { // for each job
     var o = jobsXml[i]._children;
     var tmpJob = {};
     for (var node in o) {           // for each job attribute

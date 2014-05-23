@@ -2,7 +2,6 @@
   "name": "agent-node",
   "version": "0.0.1",
   "dependencies": {
-    "url": "^0.10.1",
     "elementtree": "^0.1.6",
     "request": "^2.27.0"
   },
