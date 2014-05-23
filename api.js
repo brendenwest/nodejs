@@ -94,8 +94,8 @@ function parseXml(xmlStr) {
   var tags = [ "title", "company", "description", "location", "pubdate", "link"];
   var tagsTitle = ["job_title", "jobtitle", "JobTitle" ];
   var tagsDescription = ["snippet", "DescriptionTeaser", "body", "job_description" ];
-  var tagsLocation = ["job_location", "formattedLocation" ];
-  var tagsCompany = ["company", "job_company" ];
+  var tagsLocation = ["job_location", "formattedLocation", "Location" ];
+  var tagsCompany = ["company", "job_company", "Company" ];
   var tagsUrl = ["JobDetailsURL", "job_title_link", "url" ];  
   var tagsPubdate = ["date", "PostedDate", "job_date_added" ];
   var tagsType = ["EmploymentType", "employee_type" ];
