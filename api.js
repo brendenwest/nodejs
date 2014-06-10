@@ -26,27 +26,39 @@ function getjobs(request, response) {
       var queryData = url.parse(request.url,true).query; 
   
       var completedCalls = 0;
+      // accomodate Android v1, which sends postalcode parameter
+      var location = (typeof queryData["postalcode"] != 'undefined') ? queryData["postalcode"] : encodeURIComponent(queryData["location"]);
+      var countryCode = (queryData["country"]) ? queryData["country"] : "US";
+      var maxResults = (typeof queryData["max"] != 'undefined') ? queryData["max"] : 10;
+      var ageResults = (typeof queryData["age"] != 'undefined') ? queryData["age"] : 7;
+      var distance = (typeof queryData["distance"] != 'undefined') ? queryData["distance"] : 10;
+
+      // CB expected radius = 5, 10, 20, 30, 50, 100, or 150
+    
       jobsArray = {  jobs: []  };
 
-      var dataUrl = new Array("http://api.indeed.com/ads/apisearch?publisher=4401016323531060&q=" + queryData["kw"] + "&l=" + queryData["postalcode"] + "&sort=date&radius=&st=&jt=&start=&limit=50&fromage=30&filter=&latlong=0&co=us&chnl=&userip=97.74.215.83&useragent=safari&v=2",
-        "http://api.careerbuilder.com/v1/jobsearch?DeveloperKey=WD1B7QV6MZZXBTC2CT7K&Keywords=" + queryData["kw"]  + "&Location=" + queryData["postalcode"] + "&OrderBy=Date",
-        "http://www.linkup.com/developers/v-1/search-handler.js?api_key=131a8858030d3b157cdb5221648eb155&embedded_search_key=0712dee93e7e15ba5a2c52c1c25de159&orig_ip=97.74.215.83&keyword=" + queryData["kw"]  + "&location=" + queryData["postalcode"]  + "&distance=10&sort=d",
-        "http://api.oodle.com/api/v2/listings?key=BE3A6CD6445D&region=usa&location=" + queryData["postalcode"] + "&category=job&q=" + queryData["kw"]  + "&sort=ctime_reverse&num=50" 
+      var dataUrl = new Array("http://api.indeed.com/ads/apisearch?publisher=4401016323531060&q=" + queryData["kw"] + "&l=" + location + "&sort=date&radius=" + distance + "&st=&jt=&start=&limit=" + maxResults + "&fromage=" + ageResults + "&filter=&latlong=0&co=" + countryCode + "&chnl=&userip=97.74.215.83&useragent=safari&v=2",
+        "http://api.careerbuilder.com/v1/jobsearch?DeveloperKey=WD1B7QV6MZZXBTC2CT7K&Keywords=" + queryData["kw"]  + "&Location=" + location + "&PostedWithin=" + ageResults  + "&OrderBy=Date&PerPage=" + maxResults + "&Radius=" + distance + "&CountryCode=" + countryCode,
+        "http://www.linkup.com/developers/v-1/search-handler.js?api_key=131a8858030d3b157cdb5221648eb155&embedded_search_key=0712dee93e7e15ba5a2c52c1c25de159&orig_ip=97.74.215.83&keyword=" + queryData["kw"]  + "&location=" + location + "&distance=10&sort=d",
+        "http://api.oodle.com/api/v2/listings?key=BE3A6CD6445D&region=usa&location=" + location + "&category=job&q=" + queryData["kw"]  + "&sort=ctime_reverse&num=50" 
 );
 
+  var nFeeds = (countryCode == "US") ? dataUrl.length : 2; // if not US, use only Indeed & CareerBuilder
+    console.log(nFeeds);
 
-  for (i=0; i < dataUrl.length; i++) {
+  for (i=0; i < nFeeds; i++) {
     http.get(dataUrl[i], function(res) {   
 
       var xmlStr = '';
 
       res.on("data", function(chunk) {
         xmlStr += chunk;
+        timeout = 15000;
       });
       res.on('end', function() {
         var tmpArray = parseXml(xmlStr);
         completedCalls++;
-        if (completedCalls == dataUrl.length) {
+        if (completedCalls == nFeeds) {
 
           response.writeHead(200, {'Content-Type': 'application/json'});
           response.write(JSON.stringify(jobsArray), false, null);
@@ -114,7 +126,7 @@ function parseXml(xmlStr) {
         if (tagsCompany.indexOf(item.tag) > -1) { tmpJob.company = item.text; }
         if (tagsDescription.indexOf(item.tag) > -1) { tmpJob.description = item.text; }
         if (tagsUrl.indexOf(item.tag) > -1) { tmpJob.link = item.text; }
-        if (tagsPubdate.indexOf(item.tag) > -1) { tmpJob.pubdate = item.text; }
+        if (tagsPubdate.indexOf(item.tag) > -1) { tmpJob.pubdate = new Date(item.text).toISOString(); }
         if (tagsType.indexOf(item.tag) > -1) { tmpJob.type = item.text; }
 
         if (item.tag == "attributes" && isOodle) {

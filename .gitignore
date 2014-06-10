@@ -3,3 +3,5 @@ node_modules/
 
 hello.js
 routes.js
+err.log
+out.log
