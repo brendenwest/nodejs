@@ -44,9 +44,10 @@ function getjobs(request, response) {
 );
 
   var nFeeds = (countryCode == "US") ? dataUrl.length : 2; // if not US, use only Indeed & CareerBuilder
-    console.log(nFeeds);
+    console.log("feeds = " + nFeeds);
 
   for (i=0; i < nFeeds; i++) {
+    console.log("feed = " + dataUrl[i]);
     http.get(dataUrl[i], function(res) {   
 
       var xmlStr = '';
@@ -83,9 +84,10 @@ function parseXml(xmlStr) {
   //      response.write(xmlStr);
   //      response.end();
 
-
-
   var etree = et.parse(xmlStr);
+  var jobsPath = null;
+  var isOodle = 0;
+  var jobsXml = { };
 
   // determine data source
   var jobNodePath = new Array("./results/result/", "./Results/JobSearchResult/", "./jobs/job/", "./listings/element/" );
@@ -97,11 +99,11 @@ function parseXml(xmlStr) {
 
   }
 
-  var isOodle = (jobsPath.indexOf("element") > -1);
-  var jobsXml = etree.findall(jobsPath); 
+  if (jobsPath) {
+    var isOodle = (jobsPath.indexOf("element") > -1);
+    var jobsXml = etree.findall(jobsPath); 
+  }
 
-//console.log("job nodes = " + jobsXml.length); // should be 2
-//console.log("first job node  \n" + jobsXml[0]._children[0].tag);
 
   var tags = [ "title", "company", "description", "location", "pubdate", "link"];
   var tagsTitle = ["job_title", "jobtitle", "JobTitle" ];
@@ -156,8 +158,6 @@ function parseXml(xmlStr) {
     });
 
   }
-
-//    response.write(JSON.stringify(jobsArray), false, null);
 
     return jobsArray;
 
