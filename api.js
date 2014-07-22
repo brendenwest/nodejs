@@ -29,9 +29,9 @@ function getjobs(request, response) {
       // accomodate Android v1, which sends postalcode parameter
       var location = (typeof queryData["postalcode"] != 'undefined') ? queryData["postalcode"] : encodeURIComponent(queryData["location"]);
       var countryCode = (queryData["country"]) ? queryData["country"] : "US";
-      var maxResults = (typeof queryData["max"] != 'undefined') ? queryData["max"] : 10;
-      var ageResults = (typeof queryData["age"] != 'undefined') ? queryData["age"] : 7;
-      var distance = (typeof queryData["distance"] != 'undefined') ? queryData["distance"] : 10;
+      var maxResults = (typeof queryData["max"] != 'undefined') ? queryData["max"] : 50;
+      var ageResults = (typeof queryData["age"] != 'undefined') ? queryData["age"] : 14;
+      var distance = (typeof queryData["distance"] != 'undefined') ? queryData["distance"] : 20;
 
       // CB expected radius = 5, 10, 20, 30, 50, 100, or 150
     
