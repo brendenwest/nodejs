@@ -2,12 +2,13 @@
   "name": "agent-node",
   "version": "0.0.1",
     "engines": {
-    "node": "0.10.x"
+    "node": "0.10.x"    
   },
   "dependencies": {
     "elementtree": "^0.1.6",
     "request": "^2.27.0",
-    "forever": "0.11.1"
+    "forever": "0.11.1",
+    "cheerio": "^0.17.0"
   },
   "scripts": {
     "start": "forever -a index.js"
