@@ -35,8 +35,7 @@ function getsalaries(req, response) {
         jobsArray.push({ "updated" : $(' .SH_bar_graph_footer').first().text() });
         jobsArray.push({ "timestamp" : new Date() });
 
-          response.writeHead(200, {'Access-Control-Allow-Origin': '*'});
-          response.writeHead(200, {'Content-Type': 'application/json'});
+          response.writeHead(200, {'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'});
 
           response.write(JSON.stringify(jobsArray), false, null);
           response.end();
