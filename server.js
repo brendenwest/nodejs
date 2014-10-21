@@ -14,13 +14,12 @@ function start() {
       trends.getsalaries(request, response);
     	break;
   	default:
-      	response.writeHead(200, {"Content-Type": "text/plain"});
       	response.write("Hello World");
       	response.end();
   	}
   }
 
-  http.createServer(onRequest).listen(process.env.PORT || 8888);
+  http.createServer(onRequest).listen(process.env.PORT || 8881);
   console.log("Server has started.");
 }
 

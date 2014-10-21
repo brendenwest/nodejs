@@ -39,23 +39,51 @@ function getjobs(request, response) {
 
       var dataUrl = new Array("http://api.indeed.com/ads/apisearch?publisher=4401016323531060&q=" + queryData["kw"] + "&l=" + location + "&sort=date&radius=" + distance + "&st=&jt=&start=&limit=" + maxResults + "&fromage=" + ageResults + "&filter=&latlong=0&co=" + countryCode + "&chnl=&userip=97.74.215.83&useragent=safari&v=2",
         "http://api.careerbuilder.com/v1/jobsearch?DeveloperKey=WD1B7QV6MZZXBTC2CT7K&Keywords=" + queryData["kw"]  + "&Location=" + location + "&PostedWithin=" + ageResults  + "&OrderBy=Date&PerPage=" + maxResults + "&Radius=" + distance + "&CountryCode=" + countryCode,
+        "http://api.oodle.com/api/v2/listings?key=BE3A6CD6445D&region=usa&location=" + location + "&category=job&q=" + queryData["kw"]  + "&sort=ctime_reverse&num=50"
+      );
+
+/*      var dataUrl = new Array("http://api.indeed.com/ads/apisearch?publisher=4401016323531060&q=" + queryData["kw"] + "&l=" + location + "&sort=date&radius=" + distance + "&st=&jt=&start=&limit=" + maxResults + "&fromage=" + ageResults + "&filter=&latlong=0&co=" + countryCode + "&chnl=&userip=97.74.215.83&useragent=safari&v=2",
+        "http://api.careerbuilder.com/v1/jobsearch?DeveloperKey=WD1B7QV6MZZXBTC2CT7K&Keywords=" + queryData["kw"]  + "&Location=" + location + "&PostedWithin=" + ageResults  + "&OrderBy=Date&PerPage=" + maxResults + "&Radius=" + distance + "&CountryCode=" + countryCode,
         "http://www.linkup.com/developers/v-1/search-handler.js?api_key=131a8858030d3b157cdb5221648eb155&embedded_search_key=0712dee93e7e15ba5a2c52c1c25de159&orig_ip=97.74.215.83&keyword=" + queryData["kw"]  + "&location=" + location + "&distance=10&sort=d",
         "http://api.oodle.com/api/v2/listings?key=BE3A6CD6445D&region=usa&location=" + location + "&category=job&q=" + queryData["kw"]  + "&sort=ctime_reverse&num=50" 
 );
+*/
 
   var nFeeds = (countryCode == "US") ? dataUrl.length : 2; // if not US, use only Indeed & CareerBuilder
     console.log("feeds = " + nFeeds);
 
   for (i=0; i < nFeeds; i++) {
+
+/*
+request.get({url: url}, function(err, resp, body){
+  if(err) return res.end(err.message);
+  res.send(body);
+}).on('error', function(e){
+    console.log(e)
+  }).end()
+*/
+
     console.log("feed = " + dataUrl[i]);
     http.get(dataUrl[i], function(res) {   
 
       var xmlStr = '';
 
+      res.setTimeout(0);
       res.on("data", function(chunk) {
         xmlStr += chunk;
-        timeout = 15000;
       });
+/*
+      res.on('socket', function (socket) {
+        socket.setTimeout(20);  
+        socket.on('timeout', function() {
+            res.abort();
+        });
+      });
+      res.on("error", function(chunk) {
+        var tmpArray = "";
+        completedCalls++;
+      });
+*/
       res.on('end', function() {
         var tmpArray = parseXml(xmlStr);
         completedCalls++;
