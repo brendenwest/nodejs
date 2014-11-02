@@ -57,7 +57,12 @@ function getjobs(request, response) {
     completedCalls++;
     // called on completion of each API request
     if (completedCalls == nFeeds) {
-      response.writeHead(200, {'Content-Type': 'application/json'});
+      response.writeHead(200, {
+        'Content-Type': 'application/json',
+        'Cache-Control': 'private, max-age=120',
+        'Last-Modified': (new Date()).toUTCString()
+      });
+
       response.write(JSON.stringify(jobsArray), false, null);
       response.end();
 
