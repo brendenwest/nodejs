@@ -15,11 +15,11 @@ exports.events = function( callback) {
 
         	// toss events older than today+7
         	// keep only events w/ status=upcoming
-        	var all_events = JSON.parse(body);
+        	var all_events = JSON.parse(body);            
         	var filtered = all_events.filter(function(event){
                 var timeDiff = Math.abs(event.time - Date.now()); 
 				var diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24));
-        		return (event.group.category.id == 2 || event.group.category.id) == 34 && diffDays <= 7;
+        		return (event.group.category.id == 2 || event.group.category.id == 34) && diffDays <= 7;
         	});
 
             callback(filtered);
