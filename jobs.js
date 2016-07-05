@@ -43,8 +43,8 @@ function getjobs(request, response) {
     
       jobsArray = {  jobs: []  };
 
-      var dataUrl = new Array("http://api.indeed.com/ads/apisearch?publisher=4401016323531060&q=" + queryData["kw"] + "&l=" + location + "&sort=date&radius=" + distance + "&st=&jt=&start=&limit=" + maxResults + "&fromage=" + ageResults + "&filter=&latlong=0&co=" + countryCode + "&chnl=&userip=97.74.215.83&useragent=safari&v=2",
-        "http://api.careerbuilder.com/v1/jobsearch?DeveloperKey=WD1B7QV6MZZXBTC2CT7K&Keywords=" + queryData["kw"]  + "&Location=" + location + "&PostedWithin=" + ageResults  + "&OrderBy=Date&PerPage=" + maxResults + "&Radius=" + distance + "&CountryCode=" + countryCode,
+      var dataUrl = new Array("http://api.indeed.com/ads/apisearch?publisher=4401016323531060&q=" + queryData["kw"] + "&l=" + location + "&sort=&radius=" + distance + "&st=&jt=&start=&limit=" + maxResults + "&fromage=" + ageResults + "&filter=&latlong=0&co=" + countryCode + "&chnl=&userip=97.74.215.83&useragent=safari&v=2",
+        "http://api.careerbuilder.com/v1/jobsearch?DeveloperKey=WD1B7QV6MZZXBTC2CT7K&Keywords=" + queryData["kw"]  + "&Location=" + location + "&PostedWithin=" + ageResults  + "&OrderBy=&PerPage=" + maxResults + "&Radius=" + distance + "&CountryCode=" + countryCode,
         "http://www.linkup.com/developers/v-1/search-handler.js?api_key=131a8858030d3b157cdb5221648eb155&embedded_search_key=0712dee93e7e15ba5a2c52c1c25de159&orig_ip=97.74.215.83&keyword=" + queryData["kw"]  + "&location=" + location + "&distance=10&sort=d",
         "http://api.oodle.com/api/v2/listings?key=BE3A6CD6445D&region=usa&location=" + location + "&category=job&q=" + queryData["kw"]  + "&sort=ctime_reverse&num=50" 
 );
