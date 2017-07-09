@@ -6,26 +6,27 @@
   },
   "dependencies": {
     "cheerio": "^0.17.0",
-    "cors": "^2.7.1",
-    "elementtree": "^0.1.6",
-    "express": "^4.14.0",
-    "forever": "0.11.1",
+    "cors": "^2.8.3",
+    "elementtree": "^0.1.7",
+    "express": "^4.15.3",
+    "forever": "^0.11.1",
+    "joi": "^10.6.0",
     "request": "^2.27.0"
   },
   "scripts": {
     "start": "forever -a index.js"
   },
-  "description": "API support for Job Agent & brisksoft.us",
+  "description": "API support for brisksoft.us",
   "main": "index.js",
   "devDependencies": {},
   "repository": {
     "type": "git",
-    "url": "https://github.com/brenbob/nodejs"
+    "url": "https://github.com/brendenwest/nodejs"
   },
   "author": "Brenden West",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/brenbob/nodejs/issues"
+    "url": "https://github.com/brendenwest/nodejs/issues"
   },
-  "homepage": "https://github.com/brenbob/nodejs"
+  "homepage": "https://github.com/brendenwest/nodejs"
 }
