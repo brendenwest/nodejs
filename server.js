@@ -39,9 +39,39 @@ app.get('/api/stmjobs', function(req,res) {
     });
 });
 
+app.get('/api/jobs', function(req,res) {
+    req.setTimeout(10000,function () {
+      console.log('request timed out');
+    });
 
+    jobs.getjobs(req.url, (results) => {
+        if (results) {
+          res.setHeader('Cache-Control', 'private, max-age=120');
+          res.setHeader('Last-Modified', (new Date()).toUTCString());
+          res.json(results);    
+        } else {
+            res.json([]);    
+        }
+    });
+
+});
+
+// legacy url
 app.get('/getjobs', function(req,res) {
-  jobs.getjobs(req, res);
+    req.setTimeout(10000,function () {
+      console.log('request timed out');
+    });
+
+    jobs.getjobs(req.url, (results) => {
+        if (results) {
+          res.setHeader('Cache-Control', 'private, max-age=120');
+          res.setHeader('Last-Modified', (new Date()).toUTCString());
+          res.json({'jobs': results });    
+        } else {
+            res.json([]);    
+        }
+    });
+  
 });
 
 app.get('/getsalaries', function(req,res) {
