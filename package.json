@@ -2,7 +2,7 @@
   "name": "brisk-api",
   "version": "0.3.0",
   "engines": {
-    "node": "6.0.x"
+    "node": "^8.1.4"
   },
   "dependencies": {
     "cheerio": "^0.17.0",
