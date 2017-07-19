@@ -6,7 +6,7 @@ app.set('port', process.env.PORT || 3000);
 app.use('/api', require('cors')());
 
 var jobs = require("./jobs");
-var calendar = require("./calendar");
+var meetup = require("./meetup");
 var trends = require("./trends");
 var scc = require("./scc");
 
@@ -17,9 +17,23 @@ app.get('/', function(req,res) {
 });
 
 app.get('/api/calendar', function(req,res) {
-    calendar.events(function (events) {
+    meetup.events(function (events) {
         if (events) {
+            res.setHeader('Cache-Control', 'public, max-age=120');
+            res.setHeader('Last-Modified', (new Date()).toUTCString());
             res.json(events);    
+        } else {
+            res.status(404).send("404 - not found");    
+        }
+    });
+});
+
+app.get('/api/stmjobs', function(req,res) {
+    meetup.jobs(function (jobs) {
+        if (jobs) {
+            res.setHeader('Cache-Control', 'public, max-age=120');
+            res.setHeader('Last-Modified', (new Date()).toUTCString());
+            res.json(jobs);    
         } else {
             res.status(404).send("404 - not found");    
         }
