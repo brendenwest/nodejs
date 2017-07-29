@@ -8,6 +8,7 @@ app.use('/api', require('cors')());
 var jobs = require("./jobs");
 var meetup = require("./meetup");
 var trends = require("./trends");
+var scc = require("./scc");
 
 // Routes
 app.get('/', function(req,res) {
@@ -76,6 +77,22 @@ app.get('/getjobs', function(req,res) {
 
 app.get('/getsalaries', function(req,res) {
   trends.getsalaries(req, res);
+});
+
+app.get('/api/v1/classes/:campus/:dept/:yrq', (req,res) => {
+    req.setTimeout(10000, () => {
+     console.log('request timed out');
+    });
+
+    scc.classes(req.params.campus, req.params.dept, req.params.yrq, (results) => {
+        if (results) {
+        //   res.setHeader('Cache-Control', 'private, max-age=120');
+        //   res.setHeader('Last-Modified', (new Date()).toUTCString());
+          res.json(results);    
+        } else {
+            res.json({});    
+        }
+    });
 });
 
 exports.start = function() {
