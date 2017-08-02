@@ -5,14 +5,16 @@ const NodeCache = require( "node-cache" );
 
 const cache = new NodeCache({ stdTTL: 10000});
 const campusCodes = {"scc":"062"}
+// yrq: B781 = summer, B782 = fall
 
 const options = {
     hostname: 'mycentral.seattlecolleges.edu',
-    path: '/WebServices/MobileSchedule.asmx/',
+    path: '/WebServices/MobileSchedule.asmx/GetDepartmentDetails',
     port: 443,
     method: 'POST',
     headers: {
-       'Content-Type': 'application/json; charset=UTF-8'
+       'Content-Type': 'application/json; charset=UTF-8',
+       'Connection':'keep-alive'
      }
 };
 
@@ -24,7 +26,6 @@ exports.classes = (campus, dept, yrq, callback) => {
             callback(result);
         }
     } catch ( err ) {
-        options.path += "GetDepartmentDetails";
         let detail = {campusCode: campusCodes[campus], yrq: yrq, deptId:dept, "deptName":"", "openClassesOnly":"false", "filterOpts":{}};
         loadUrl(detail, options).then((values) => {
             let json = JSON.parse(values);
