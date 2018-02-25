@@ -1,18 +1,21 @@
 {
   "name": "brisk-api",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "engines": {
-    "node": "6.0.x"
+    "node": "8.9.x"
   },
   "dependencies": {
+    "axios": "^0.17.1",
     "cheerio": "^0.17.0",
     "cors": "^2.8.3",
     "elementtree": "^0.1.7",
     "express": "^4.15.3",
     "forever": "^0.11.1",
     "joi": "^10.6.0",
+    "linkedin-public-profile": "^4.0.1",
     "node-cache": "^4.1.1",
-    "request": "^2.27.0"
+    "request": "^2.83.0",
+    "request-promise": "^4.2.2"
   },
   "scripts": {
     "start": "forever -a index.js"

@@ -29,7 +29,6 @@ const schema = Joi.object().keys({
 */
 
 exports.getjobs = (requestUrl, callback) => {
-
     let queryData = url.parse(requestUrl,true).query;
     const values = Joi.validate(queryData, schema).value;
     let location = (values.postalcode) ? values.postalcode : encodeURIComponent(values.location);
@@ -39,10 +38,10 @@ exports.getjobs = (requestUrl, callback) => {
     let jobs = [];
 
     let dataUrls = [
-      "http://api.indeed.com/ads/apisearch?publisher=4401016323531060&q=" + values.kw + "&l=" + location + "&sort=&radius=" + values.distance + "&st=&jt=&start=&limit=" + values.max + "&fromage=" + values.age + "&filter=&latlong=0&co=" + values.country + "&chnl=&userip=97.74.215.83&useragent=safari&v=2",
-      "http://api.careerbuilder.com/v1/jobsearch?DeveloperKey=WD1B7QV6MZZXBTC2CT7K&Keywords=" + values.kw  + "&Location=" + location + "&PostedWithin=" + values.age  + "&OrderBy=&PerPage=" + values.max + "&Radius=" + values.distance + "&CountryCode=" + values.country,
-      "http://www.linkup.com/developers/v-1/search-handler.js?api_key=131a8858030d3b157cdb5221648eb155&embedded_search_key=0712dee93e7e15ba5a2c52c1c25de159&orig_ip=97.74.215.83&keyword=" + values.kw  + "&location=" + location + "&distance=10&sort=d",
-      "http://api.oodle.com/api/v2/listings?key=BE3A6CD6445D&region=usa&location=" + location + "&category=job&q=" + values.kw  + "&sort=ctime_reverse&num=" + values.max 
+      "https://api.indeed.com/ads/apisearch?publisher=4401016323531060&q=" + values.kw + "&l=" + location + "&sort=&radius=" + values.distance + "&st=&jt=&start=&limit=" + values.max + "&fromage=" + values.age + "&filter=&latlong=0&co=" + values.country + "&chnl=&userip=97.74.215.83&useragent=safari&v=2",
+      "https://api.careerbuilder.com/v1/jobsearch?DeveloperKey=WD1B7QV6MZZXBTC2CT7K&Keywords=" + values.kw  + "&Location=" + location + "&PostedWithin=" + values.age  + "&OrderBy=&PerPage=" + values.max + "&Radius=" + values.distance + "&CountryCode=" + values.country,
+      "https://www.linkup.com/developers/v-1/search-handler.js?api_key=131a8858030d3b157cdb5221648eb155&embedded_search_key=0712dee93e7e15ba5a2c52c1c25de159&orig_ip=97.74.215.83&keyword=" + values.kw  + "&location=" + location + "&distance=10&sort=d",
+      "https://api.oodle.com/api/v2/listings?key=BE3A6CD6445D&region=usa&location=" + location + "&category=job&q=" + values.kw  + "&sort=ctime_reverse&num=" + values.max 
       ];
 
   let feeds = dataUrls.filter((url,index) => {
