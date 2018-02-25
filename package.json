@@ -2,7 +2,7 @@
   "name": "brisk-api",
   "version": "0.4.0",
   "engines": {
-    "node": "8.9.x"
+    "node": "^8.9.4"
   },
   "dependencies": {
     "axios": "^0.17.1",
