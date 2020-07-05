@@ -1,5 +1,6 @@
 # ignore all these directories
-node_modules/
+node_modules
+.idea
 
 hello.js
 routes.js
