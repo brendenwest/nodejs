@@ -1,14 +1,15 @@
-var express = require("express");
-var app = express();
+const express = require("express");
+const app = express();
 
 // configure Express app
 app.set('port', process.env.PORT || 3000);
 app.use('/api', require('cors')());
 
-var jobs = require("./jobs");
-var meetup = require("./meetup");
-var trends = require("./trends");
-var scc = require("./scc");
+const jobs = require("./jobs");
+const meetup = require("./meetup");
+const trends = require("./trends");
+const scc = require("./scc");
+const streetends = require("./streetends");
 
 // Routes
 app.get('/', function(req,res) {
@@ -55,6 +56,18 @@ app.get('/api/jobs', function(req,res) {
         }
     });
 
+});
+
+app.get('/api/streetends/:content', (req,res) => {
+    streetends.fetchData(req.params.content, (data) => {
+        if (data) {
+            res.setHeader('Cache-Control', 'public, max-age=120');
+            res.setHeader('Last-Modified', (new Date()).toUTCString());
+            res.json(data);
+        } else {
+            res.status(404).send("404 - not found");
+        }
+    });
 });
 
 // legacy url

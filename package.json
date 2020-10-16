@@ -5,23 +5,26 @@
     "node": "^12.7.0"
   },
   "dependencies": {
-    "axios": "0.17.1",
-    "cheerio": "0.17.0",
+    "cheerio": "^1.0.0-rc.3",
     "cors": "2.8.3",
     "elementtree": "0.1.7",
-    "express": "4.15.3",
+    "express": "^4.17.1",
     "forever": "0.11.1",
-    "joi": "10.6.0",
+    "joi": "^10.6.0",
     "node-cache": "4.1.1",
+    "node-fetch": "^2.6.1",
     "request": "2.83.0",
     "request-promise": "4.2.2"
   },
   "scripts": {
-    "start": "forever -a index.js"
+    "start": "forever -a index.js",
+    "dev": "nodemon index"
   },
   "description": "API support for brisksoft.us",
   "main": "index.js",
-  "devDependencies": {},
+  "devDependencies": {
+    "nodemon": "^2.0.5"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/brendenwest/nodejs"
