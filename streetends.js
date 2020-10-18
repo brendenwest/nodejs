@@ -3,6 +3,21 @@ const fetch = require('node-fetch')
 
 const url = "https://www.streetends.org/"
 
+const contacts = [
+    {
+        name: "Karen Daubert",
+        email: "karendaubert@msn.com",
+        phone: "206-310-1792",
+        address: "Friends of Street Ends, c/o Leschi Community Council, 140 Lakeside Avenue, Suite A #2, Seattle, 98122"
+    },
+    {
+        name: "Omar Akkari",
+        title: "Shoreline Street Ends Program Coordinator",
+        email: "omar.akkari@seattle.gov",
+        phone: "206-233-5114"
+    }
+]
+
 const parsePhotos = ($) => {
     const photos = [];
     $(".thumb-image").toArray().map(tag => {
@@ -38,6 +53,8 @@ exports.fetchData = (content, callback) => {
         let data;
         if (content === "photos") {
             data = parsePhotos($);
+        } else if (content === "contacts") {
+            data = contacts;
         } else {
             data = parseSchedule($);
         }
