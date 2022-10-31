@@ -1,15 +1,15 @@
 {
   "name": "brisk-api",
-  "version": "0.4.1",
+  "version": "0.5.0",
   "engines": {
-    "node": "^12.7.0"
+    "node": "^18.12.0"
   },
   "dependencies": {
-    "cheerio": "^1.0.0-rc.3",
+    "cheerio": "^1.0.0-rc.12",
     "cors": "2.8.3",
     "elementtree": "0.1.7",
-    "express": "^4.17.1",
-    "forever": "0.11.1",
+    "express": "^4.18.2",
+    "forever": "^4.0.3",
     "joi": "^10.6.0",
     "node-cache": "4.1.1",
     "node-fetch": "^2.6.1",
@@ -23,7 +23,7 @@
   "description": "API support for brisksoft.us",
   "main": "index.js",
   "devDependencies": {
-    "nodemon": "^2.0.5"
+    "nodemon": "^2.0.20"
   },
   "repository": {
     "type": "git",
